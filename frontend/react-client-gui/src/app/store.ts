@@ -7,10 +7,13 @@ import {
 	CombinedState,
 } from "@reduxjs/toolkit";
 import authReducer from "../features/auth/authSlice";
+import messagesReducer from "../features/messages/messagesSlice";
 import logger from "redux-logger";
+import { MessageModel } from "../models/message.model";
 
 const combinedReducer = combineReducers({
 	auth: authReducer,
+	messages: messagesReducer,
 });
 
 const rootReducer = (
@@ -18,6 +21,13 @@ const rootReducer = (
 		| CombinedState<{
 				auth: {
 					user: any;
+					isError: boolean;
+					isSuccess: boolean;
+					isLoading: boolean;
+					message: string;
+				};
+				messages: {
+					messages: MessageModel[];
 					isError: boolean;
 					isSuccess: boolean;
 					isLoading: boolean;

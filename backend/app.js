@@ -27,6 +27,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/users", cors(), require("./routes/usersRoutes"));
+app.use("/api/messages", cors(), require("./routes/messagesRoutes"));
 
 app.listen(PORT, (error) => {
 	if (!error)
