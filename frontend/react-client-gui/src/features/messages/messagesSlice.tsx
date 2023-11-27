@@ -14,7 +14,7 @@ const initialState = {
 // Send message
 export const sendMessage = createAsyncThunk<
 	MessageModel,
-	MessageModel[],
+	MessageModel,
 	{ state: RootState }
 >("messages/send", async (messageModelData, thunkAPI) => {
 	try {

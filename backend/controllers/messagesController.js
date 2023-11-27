@@ -3,13 +3,19 @@ const asyncHandler = require("express-async-handler");
 const Messages = require("../database/models/messages");
 
 const sendMessage = asyncHandler(async (req, res) => {
-	const { sender_first_name, sender_last_name, sender_username, sent_message } =
-		req.body;
+	const {
+		sender_id,
+		sender_first_name,
+		sender_last_name,
+		sender_username,
+		sent_message,
+	} = req.body;
 
 	try {
 		let message;
 
-		message = await Messages.Create({
+		message = await Messages.create({
+			sender_id: sender_id,
 			sender_first_name: sender_first_name,
 			sender_last_name: sender_last_name,
 			sender_username: sender_username,
@@ -32,7 +38,7 @@ const sendMessage = asyncHandler(async (req, res) => {
 
 const getMessages = asyncHandler(async (req, res) => {
 	let messages;
-	messages = await Messages.Find();
+	messages = await Messages.find();
 	res.status(200).json(messages);
 });
 

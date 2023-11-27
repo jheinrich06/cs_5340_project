@@ -6,6 +6,7 @@ import { login, reset } from "../features/auth/authSlice";
 import { toast } from "react-toastify";
 import { AppDispatch, RootState } from "../app/store";
 import { HeaderSignIn } from "../components/HeaderSignIn";
+import { getMessages } from "../features/messages/messagesSlice";
 
 export default function LoginPage() {
 	const navigate = useNavigate();
@@ -36,7 +37,7 @@ export default function LoginPage() {
 		if (isSuccess && user) {
 			let welcomeMessage = "Welcome " + user.first_name + " " + user.last_name;
 			toast.success(welcomeMessage);
-			//dispatch(getInvoices(user.token)); get messages?
+			dispatch(getMessages(user.token));
 			navigate("/user");
 		}
 

@@ -10,7 +10,11 @@ const sendMessage = async (messageModelData: any, token: any) => {
 		},
 	};
 
-	const response = await axios.post(API_URL + "send", messageModelData, config);
+	const response = await axios.post(
+		API_URL + "sendMessage",
+		messageModelData,
+		config
+	);
 
 	return response.data;
 };
@@ -23,7 +27,7 @@ const getMessages = async (token: any) => {
 		},
 	};
 
-	const response = await axios.get(API_URL + "get", config);
+	const response = await axios.get(API_URL + "getMessages", config);
 
 	return response.data;
 };
