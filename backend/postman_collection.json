@@ -1,8 +1,9 @@
 {
 	"info": {
-		"_postman_id": "e596111f-f87b-48f4-aea5-3af760654ddd",
+		"_postman_id": "4b7ae0a9-118c-4bfc-8cef-8fd50c420078",
 		"name": "CS 5340 Project",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24838144"
 	},
 	"item": [
 		{
@@ -82,7 +83,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\":\"{{email}}\",\n    \"username\":\"\",\n    \"password\":\"{{password}}\"\n}",
+							"raw": "{\n    \"email\":\"{{email}}\",\n    \"password\":\"{{password}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
