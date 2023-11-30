@@ -66,7 +66,13 @@ const updateUser = asyncHandler(async (req, res) => {
 			last_name: user.last_name,
 			username: user.username,
 			email: user.email,
-			token: generateToken(_id),
+			token: generateToken({
+				_id: user._id,
+				first_name: user.first_name,
+				last_name: user.last_name,
+				username: user.username,
+				email: user.email,
+			}),
 		});
 	} catch (err) {
 		console.log(err);
@@ -86,7 +92,13 @@ const loginUser = asyncHandler(async (req, res) => {
 			last_name: user.last_name,
 			username: user.username,
 			email: user.email,
-			token: generateToken(user._id),
+			token: generateToken({
+				_id: user._id,
+				first_name: user.first_name,
+				last_name: user.last_name,
+				username: user.username,
+				email: user.email,
+			}),
 		});
 	} else {
 		res.status(400);

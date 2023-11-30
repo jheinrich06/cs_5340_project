@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,16 +6,35 @@ import { AppDispatch, RootState } from "../app/store";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../features/auth/authSlice";
 import { toast } from "react-toastify";
+import jwt from "jwt-decode";
+import Cookies from "universal-cookie";
 
 function classNames(...classes: string[]) {
 	return classes.filter(Boolean).join(" ");
 }
 
 export default function AuthDashboardHeader() {
-	const { user } = useSelector((state: RootState) => state.auth);
+	const { user, isError, message } = useSelector(
+		(state: RootState) => state.auth
+	);
 
-	const navigate = useNavigate();
 	const dispatch = useDispatch<AppDispatch>();
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (user == null) {
+			navigate("/");
+		}
+
+		if (isError) {
+			toast.error(message);
+		}
+		console.log(user);
+
+		return () => {};
+	}, [user, isError, message, dispatch, navigate]);
+
+	const cookies = new Cookies();
 
 	function logoutClick() {
 		dispatch(logout());

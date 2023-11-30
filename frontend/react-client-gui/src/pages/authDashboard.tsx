@@ -5,21 +5,36 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../app/store";
 import { toast } from "react-toastify";
 import { getMessages, sendMessage } from "../features/messages/messagesSlice";
+import jwt from "jwt-decode";
+import Cookies from "universal-cookie";
 
 export default function AuthDashboard() {
 	const dispatch = useDispatch<AppDispatch>();
 	const navigate = useNavigate();
 
+	const { user, isError, message } = useSelector(
+		(state: RootState) => state.auth
+	);
+
+	useEffect(() => {
+		if (user == null) {
+			navigate("/");
+		}
+
+		if (isError) {
+			toast.error(message);
+		}
+
+		return () => {};
+	}, [user, isError, message, dispatch, navigate]);
+
+	const cookies = new Cookies();
 	const [formData, setFormData] = useState({
 		sent_message: "",
 	});
 
 	const { sent_message } = formData;
 	const date_now = new Date();
-
-	const { user, isError, message } = useSelector(
-		(state: RootState) => state.auth
-	);
 
 	const { messages } = useSelector((state: RootState) => state.messages);
 
@@ -39,25 +54,19 @@ export default function AuthDashboard() {
 		}
 	}, [messages]);
 
+	{
+		/*
 	useEffect(() => {
-		if (!user) {
-			navigate("/");
+		if (user != null) {
+			const interval = setInterval(() => {
+				dispatch(getMessages(user.token));
+			}, 60000);
+
+			return () => clearInterval(interval);
 		}
-
-		if (isError) {
-			toast.error(message);
-		}
-
-		return () => {};
-	}, [user, isError, message, dispatch, navigate]);
-
-	useEffect(() => {
-		const interval = setInterval(() => {
-			dispatch(getMessages(user.token));
-		}, 60000);
-
-		return () => clearInterval(interval);
 	}, [user, dispatch]);
+*/
+	}
 
 	const onChange = (e: { target: { name: any; value: any } }) => {
 		setFormData((prevState) => ({
@@ -102,8 +111,8 @@ export default function AuthDashboard() {
 											<div className="relative">
 												<span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-gray-500">
 													<span className="font-medium leading-none text-white">
-														{user.first_name.slice(0, 1) +
-															user.last_name.slice(0, 1)}
+														{message.sender_first_name.slice(0, 1) +
+															message.sender_last_name.slice(0, 1)}
 													</span>
 												</span>
 											</div>
