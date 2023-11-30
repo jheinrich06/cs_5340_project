@@ -16,11 +16,6 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"jsonData = JSON.parse(responseBody);",
-									"pm.globals.set(\"token\", jsonData.token);",
-									"pm.globals.set(\"email\", jsonData.email);",
-									"pm.globals.set(\"username\", jsonData.username);",
-									"pm.globals.set(\"_id\", jsonData._id);",
 									""
 								],
 								"type": "text/javascript"
@@ -67,11 +62,6 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"jsonData = JSON.parse(responseBody);",
-									"pm.globals.set(\"token\", jsonData.token);",
-									"pm.globals.set(\"email\", jsonData.email);",
-									"pm.globals.set(\"username\", jsonData.username);",
-									"pm.globals.set(\"_id\", jsonData._id);",
 									""
 								],
 								"type": "text/javascript"
@@ -101,6 +91,30 @@
 						}
 					},
 					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"jsonData = JSON.parse(responseBody);",
+							"pm.globals.set(\"token\", jsonData.token);",
+							"pm.globals.set(\"email\", jsonData.email);",
+							"pm.globals.set(\"username\", jsonData.username);",
+							"pm.globals.set(\"_id\", jsonData._id);"
+						]
+					}
 				}
 			]
 		},
