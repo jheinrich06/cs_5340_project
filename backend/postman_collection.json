@@ -1,0 +1,248 @@
+{
+	"info": {
+		"_postman_id": "4b7ae0a9-118c-4bfc-8cef-8fd50c420078",
+		"name": "CS 5340 Project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24838144"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Sign-up",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"first_name\":\"{{first_name}}\",\n    \"last_name\":\"{{last_name}}\",\n    \"username\":\"{{username}}\",\n    \"email\":\"{{email}}\",\n    \"password\":\"{{password}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}users/",
+							"host": [
+								"{{baseUrl}}users"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"{{email}}\",\n    \"password\":\"{{password}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}users/login",
+							"host": [
+								"{{baseUrl}}users"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"jsonData = JSON.parse(responseBody);",
+							"pm.globals.set(\"token\", jsonData.token);",
+							"pm.globals.set(\"email\", jsonData.email);",
+							"pm.globals.set(\"username\", jsonData.username);",
+							"pm.globals.set(\"_id\", jsonData._id);"
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Messages",
+			"item": [
+				{
+					"name": "Messages",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}messages/getMessages",
+							"host": [
+								"{{baseUrl}}messages"
+							],
+							"path": [
+								"getMessages"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Message",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"_id\": \"\",\n    \"sender_id\": \"{{_id}}\",\n    \"sender_first_name\": \"{{first_name}}\",\n    \"sender_last_name\": \"{{last_name}}\",\n    \"sender_username\": \"{{username}}\",\n    \"sent_message\": \"random generated words: {{$randomWords}}\",\n    \"time_sent\": \"{{$timestamp}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}messages/sendMessage",
+							"host": [
+								"{{baseUrl}}messages"
+							],
+							"path": [
+								"sendMessage"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Messages - No Auth",
+			"item": [
+				{
+					"name": "Messages",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}messages/getMessages",
+							"host": [
+								"{{baseUrl}}messages"
+							],
+							"path": [
+								"getMessages"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Message",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"_id\": \"\",\n    \"sender_id\": \"{{_id}}\",\n    \"sender_first_name\": \"{{first_name}}\",\n    \"sender_last_name\": \"{{last_name}}\",\n    \"sender_username\": \"{{username}}\",\n    \"sent_message\": \"random generated words: {{$randomWords}}\",\n    \"time_sent\": \"{{$timestamp}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}messages/sendMessage",
+							"host": [
+								"{{baseUrl}}messages"
+							],
+							"path": [
+								"sendMessage"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
